@@ -52,7 +52,7 @@ ENTER   = \r|\n|\r\n
 CARACTER = [^\r\n]
 COMENTARIO_MULTILINEA = "<!"[^/]~"!>"
 COMENTARIO_SIMPLE = "//" {CARACTER}* {ENTER}?
-
+//comillas
 
 
 %%
@@ -63,7 +63,7 @@ COMENTARIO_SIMPLE = "//" {CARACTER}* {ENTER}?
 {COMENTARIO_MULTILINEA} {System.out.println("Comentario: "+yytext()); }
 
 <YYINITIAL> {CONJ}  {   return new Symbol(sym.CONJ, yyline, yycolumn, yytext());  }
-<YYINITIAL> {CARACTER}  {   return new Symbol(sym.CARACTER, yyline, yycolumn, yytext());  }
+//<YYINITIAL> {CARACTER}  {   return new Symbol(sym.CARACTER, yyline, yycolumn, yytext());  }
 <YYINITIAL> {SPACE}     { /*Espacios omitidos*/ }
 <YYINITIAL> {ENTER}     { /*Saltos de linea omitido*/}
 <YYINITIAL> {MAYUSCULAS}  {   return new Symbol(sym.MAYUSCULAS, yyline, yycolumn, yytext());  }

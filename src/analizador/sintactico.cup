@@ -2,6 +2,7 @@ package analizador;
 import java_cup.runtime.*;
 
 
+
  
 parser code
 {:
@@ -23,7 +24,8 @@ parser code
 :} 
 
 
-terminal String ENTERO, CONJ, MAYUSCULAS, MINUSCULAS, SIGNO_ASCII, PUNTO_Y_COMA, PORCENTAJE, LLAVE_ABRIR, LLAVE_CERRAR, DOS_PUNTOS, MAYOR, GUION, COMA, VIRGUILILLA, PUNTO, SUMA, DISYUNCION, INTERROGACION, KLEENE;
+terminal ENTERO, CONJ, MAYUSCULAS, MINUSCULAS, SIGNOS_ASCII, PUNTO_Y_COMA, PORCENTAJE, LLAVE_ABRIR, LLAVE_CERRAR, DOS_PUNTOS, MAYOR, GUION, COMA, VIRGUILILLA, PUNTO, SUMA, 
+DISYUNCION, INTERROGACION, KLEENE;
 
 
 
@@ -32,9 +34,6 @@ non terminal ini;
 non terminal lexema;
 
 
-precedence left MAS,MENOS;
-precedence left POR,DIVIDIDO;
-precedence right UMENOS; 
 
 start with ini; 
 
@@ -42,6 +41,5 @@ ini ::= ini lexema
  |lexema
 ; 
 
-instruccion ::= 
-   REVALUAR CORIZQ expresion:a CORDER PTCOMA{:System.out.println("El valor de la expresión es: "+a);:}
-;
+lexema ::= 
+   ENTERO| CONJ| MAYUSCULAS| MINUSCULAS| SIGNOS_ASCII| PUNTO_Y_COMA| PORCENTAJE| LLAVE_ABRIR| LLAVE_CERRAR| DOS_PUNTOS| MAYOR| GUION| COMA| VIRGUILILLA| PUNTO| SUMA| DISYUNCION| INTERROGACION| KLEENE;
