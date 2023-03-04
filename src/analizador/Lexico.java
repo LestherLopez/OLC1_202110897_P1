@@ -620,27 +620,27 @@ public class Lexico implements java_cup.runtime.Scanner {
             // fall through
           case 11: break;
           case 2: 
-            { return new Symbol(sym.SIGNOS_ASCII, yyline, yycolumn, yytext());
+            { System.out.println(yytext());   return new Symbol(sym.SIGNOS_ASCII, yyline, yycolumn, yytext());
             } 
             // fall through
           case 12: break;
           case 3: 
-            { return new Symbol(sym.VIRGUILILLA, yyline, yycolumn, yytext());
+            { System.out.println(yytext());  return new Symbol(sym.VIRGUILILLA, yyline, yycolumn, yytext());
             } 
             // fall through
           case 13: break;
           case 4: 
-            { return new Symbol(sym.MAYUSCULAS, yyline, yycolumn, yytext());
+            { System.out.println(yytext());   return new Symbol(sym.MAYUSCULAS, yyline, yycolumn, yytext());
             } 
             // fall through
           case 14: break;
           case 5: 
-            { return new Symbol(sym.MINUSCULAS, yyline, yycolumn, yytext());
+            { System.out.println(yytext());   return new Symbol(sym.MINUSCULAS, yyline, yycolumn, yytext());
             } 
             // fall through
           case 15: break;
           case 6: 
-            { return new Symbol(sym.ENTERO, yyline, yycolumn, yytext());
+            { System.out.println(yytext());   return new Symbol(sym.ENTERO, yyline, yycolumn, yytext());
             } 
             // fall through
           case 16: break;
@@ -655,12 +655,12 @@ public class Lexico implements java_cup.runtime.Scanner {
             // fall through
           case 18: break;
           case 9: 
-            { System.out.println("Comentario: "+yytext());
+            { System.out.println(yytext());
             } 
             // fall through
           case 19: break;
           case 10: 
-            { return new Symbol(sym.CONJ, yyline, yycolumn, yytext());
+            { System.out.println(yytext());   return new Symbol(sym.CONJ, yyline, yycolumn, yytext());
             } 
             // fall through
           case 20: break;

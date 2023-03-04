@@ -4,6 +4,8 @@
  */
 package proyecto1_olc1;
 
+import analizador.Lexico;
+import analizador.parser;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -46,6 +48,8 @@ public class Index extends javax.swing.JFrame {
         saveasButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         editorTextArea = new javax.swing.JTextArea();
+        textJbutton = new javax.swing.JButton();
+        automatajButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -86,7 +90,7 @@ public class Index extends javax.swing.JFrame {
                             .addComponent(saveButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(openButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(saveasButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE))))
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -98,34 +102,59 @@ public class Index extends javax.swing.JFrame {
                 .addComponent(saveButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(saveasButton)
-                .addGap(0, 31, Short.MAX_VALUE))
+                .addGap(0, 11, Short.MAX_VALUE))
         );
 
         editorTextArea.setColumns(20);
         editorTextArea.setRows(5);
         jScrollPane1.setViewportView(editorTextArea);
 
+        textJbutton.setText("Analizar Texto");
+        textJbutton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textJbuttonActionPerformed(evt);
+            }
+        });
+
+        automatajButton.setText("Generar Autómata");
+        automatajButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                automatajButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(22, 22, 22)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 376, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(467, Short.MAX_VALUE))
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 376, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(69, 69, 69)
+                        .addComponent(automatajButton)
+                        .addGap(35, 35, 35)
+                        .addComponent(textJbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(578, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(22, 22, 22)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(textJbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(automatajButton, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(101, Short.MAX_VALUE))
         );
 
         pack();
@@ -212,6 +241,22 @@ public class Index extends javax.swing.JFrame {
          
          
     }//GEN-LAST:event_saveasButtonActionPerformed
+
+    private void automatajButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_automatajButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_automatajButtonActionPerformed
+
+    private void textJbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textJbuttonActionPerformed
+        String texto = editorTextArea.getText();
+        try {
+            Lexico scanner = new Lexico(new java.io.StringReader(texto));
+            parser analizador = new parser(scanner);
+            analizador.parse();
+            System.out.println("Analisis realizado con exito");
+        }catch(Exception e){
+            
+        }
+    }//GEN-LAST:event_textJbuttonActionPerformed
     
 
     /**
@@ -252,6 +297,7 @@ public class Index extends javax.swing.JFrame {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton automatajButton;
     private javax.swing.JTextArea editorTextArea;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
@@ -259,5 +305,6 @@ public class Index extends javax.swing.JFrame {
     private javax.swing.JButton openButton;
     private javax.swing.JButton saveButton;
     private javax.swing.JButton saveasButton;
+    private javax.swing.JButton textJbutton;
     // End of variables declaration//GEN-END:variables
 }
