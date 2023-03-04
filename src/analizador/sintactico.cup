@@ -1,0 +1,47 @@
+package analizador;
+import java_cup.runtime.*;
+
+
+ 
+parser code
+{:
+   
+   public void syntax_error(Symbol s){ 
+        System.out.println("Error Sintáctico en la Línea " + (s.left) +
+        " Columna "+s.right+ ". No se esperaba este componente: " +s.value+"."); 
+    } 
+
+    /**
+     * Método al que se llama automáticamente ante algún error sintáctico 
+     * en el que ya no es posible una recuperación de errores.
+     **/ 
+    public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception{ 
+        System.out.println("Error síntactico irrecuperable en la Línea " + 
+        (s.left)+ " Columna "+s.right+". Componente " + s.value + 
+        " no reconocido."); 
+    }  
+:} 
+
+
+terminal String ENTERO, CONJ, MAYUSCULAS, MINUSCULAS, SIGNO_ASCII, PUNTO_Y_COMA, PORCENTAJE, LLAVE_ABRIR, LLAVE_CERRAR, DOS_PUNTOS, MAYOR, GUION, COMA, VIRGUILILLA, PUNTO, SUMA, DISYUNCION, INTERROGACION, KLEENE;
+
+
+
+
+non terminal ini;
+non terminal lexema;
+
+
+precedence left MAS,MENOS;
+precedence left POR,DIVIDIDO;
+precedence right UMENOS; 
+
+start with ini; 
+
+ini ::= ini lexema
+ |lexema
+; 
+
+instruccion ::= 
+   REVALUAR CORIZQ expresion:a CORDER PTCOMA{:System.out.println("El valor de la expresión es: "+a);:}
+;

@@ -4,10 +4,7 @@
  */
 package analizador;
 
-/**
- *
- * @author 50246
- */
+
 public class Generador {
      public static void main(String[] args) {
         generarCompilador();
