@@ -15,6 +15,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Scanner;
 import javax.swing.JFileChooser;
 import javax.swing.JTextArea;
@@ -48,7 +49,7 @@ public class Index extends javax.swing.JFrame {
         saveasButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         editorTextArea = new javax.swing.JTextArea();
-        textJbutton = new javax.swing.JButton();
+        analizarJbutton = new javax.swing.JButton();
         automatajButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -109,10 +110,10 @@ public class Index extends javax.swing.JFrame {
         editorTextArea.setRows(5);
         jScrollPane1.setViewportView(editorTextArea);
 
-        textJbutton.setText("Analizar Texto");
-        textJbutton.addActionListener(new java.awt.event.ActionListener() {
+        analizarJbutton.setText("Analizar Texto");
+        analizarJbutton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textJbuttonActionPerformed(evt);
+                analizarJbuttonActionPerformed(evt);
             }
         });
 
@@ -140,7 +141,7 @@ public class Index extends javax.swing.JFrame {
                         .addGap(69, 69, 69)
                         .addComponent(automatajButton)
                         .addGap(35, 35, 35)
-                        .addComponent(textJbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(analizarJbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(578, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -152,7 +153,7 @@ public class Index extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(textJbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(analizarJbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(automatajButton, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(101, Short.MAX_VALUE))
         );
@@ -246,17 +247,30 @@ public class Index extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_automatajButtonActionPerformed
 
-    private void textJbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textJbuttonActionPerformed
+    private void analizarJbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_analizarJbuttonActionPerformed
         String texto = editorTextArea.getText();
+        String er = "...*|ababb";
+        ArrayList<node> leaves = new ArrayList();
+        ArrayList<ArrayList> table = new ArrayList();
+        
+        er = "." + er + "#";
+        
+        Arbol arbol = new Arbol(er, leaves, table); // CREA EL ARBOL
+        node raiz = arbol.getRoot();
+        
+        raiz.getNode(); // DETERMINA SI LOS NODOS SON ANULABLES, SUS PRIMEROS Y ULTIMOS
+        raiz.follow();
+        
         try {
             Lexico scanner = new Lexico(new java.io.StringReader(texto));
             parser analizador = new parser(scanner);
             analizador.parse();
+            
             System.out.println("Analisis realizado con exito");
         }catch(Exception e){
             
         }
-    }//GEN-LAST:event_textJbuttonActionPerformed
+    }//GEN-LAST:event_analizarJbuttonActionPerformed
     
 
     /**
@@ -297,6 +311,7 @@ public class Index extends javax.swing.JFrame {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton analizarJbutton;
     private javax.swing.JButton automatajButton;
     private javax.swing.JTextArea editorTextArea;
     private javax.swing.JLabel jLabel2;
@@ -305,6 +320,5 @@ public class Index extends javax.swing.JFrame {
     private javax.swing.JButton openButton;
     private javax.swing.JButton saveButton;
     private javax.swing.JButton saveasButton;
-    private javax.swing.JButton textJbutton;
     // End of variables declaration//GEN-END:variables
 }

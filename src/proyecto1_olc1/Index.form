@@ -39,7 +39,7 @@
                       <EmptySpace min="-2" pref="69" max="-2" attributes="0"/>
                       <Component id="automatajButton" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
-                      <Component id="textJbutton" min="-2" pref="90" max="-2" attributes="0"/>
+                      <Component id="analizarJbutton" min="-2" pref="90" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace pref="578" max="32767" attributes="0"/>
@@ -55,7 +55,7 @@
               <Component id="jScrollPane1" min="-2" pref="361" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="textJbutton" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
+                  <Component id="analizarJbutton" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
                   <Component id="automatajButton" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="101" max="32767" attributes="0"/>
@@ -148,12 +148,12 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JButton" name="textJbutton">
+    <Component class="javax.swing.JButton" name="analizarJbutton">
       <Properties>
         <Property name="text" type="java.lang.String" value="Analizar Texto"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="textJbuttonActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="analizarJbuttonActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="automatajButton">
