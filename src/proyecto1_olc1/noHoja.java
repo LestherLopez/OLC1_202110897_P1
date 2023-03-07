@@ -23,6 +23,6 @@ public class noHoja {
         }
         
         public int clean(String contenido) {
-            return contenido.replace(".", "").replace("|", "").replace("*", "").length();
+            return contenido.replace(".", "").replace("|", "").replace("*", "").replace("+", "").replace("?","").length();
         }
 }

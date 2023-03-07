@@ -14,5 +14,7 @@ public class tipo {
         AND,
         OR,
         KLEENE,
+        POSITIVA,
+        BOOLEANA,
     };
 }

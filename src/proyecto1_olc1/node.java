@@ -60,25 +60,26 @@ public class node {
             case AND:
                 if(leftNode instanceof node && rightNode instanceof node){
                     this.anullable = ((node)leftNode).anullable && ((node) rightNode).anullable;
-                    
+                    //nodos primeros para and
                     this.first.addAll(((node)leftNode).first);
                     if(((node)leftNode).anullable){
                         this.first.addAll(((node)rightNode).first);
                     }
-                    
+                    //nodo segundos para and
+                    this.last.addAll(((node)rightNode).last);
                     if(((node)rightNode).anullable){
                         this.last.addAll(((node)leftNode).last);
                     }
-                    this.last.addAll(((node)rightNode).last);
+                    
                 }   
                 break;
             case OR:
                 if(leftNode instanceof node && rightNode instanceof node){
                     this.anullable = ((node)leftNode).anullable || ((node) rightNode).anullable;
-                    
+                    //nodos primeros para or
                     this.first.addAll(((node)leftNode).first);
                     this.first.addAll(((node)rightNode).first);
-                    
+                    //nodos segundos para or
                     
                     this.last.addAll(((node)leftNode).last);
                     this.last.addAll(((node)rightNode).last);
@@ -91,6 +92,21 @@ public class node {
                     this.last.addAll(((node)leftNode).last);
                 }
                 break;
+            case POSITIVA:
+                if(leftNode instanceof node && ((node)leftNode).anullable==false){
+                    this.anullable = false;
+                    this.first.addAll(((node)leftNode).first);
+                    this.last.addAll(((node)leftNode).last);
+                }
+                break;
+            case BOOLEANA:
+                if(leftNode instanceof node){
+                    this.anullable = true;
+                    this.first.addAll(((node)leftNode).first);
+                    this.last.addAll(((node)leftNode).last);
+                }
+                break;
+            
             default:
                 break;
         }
@@ -106,16 +122,24 @@ public class node {
                 for (int item : ((node)leftFollow).last) {
                     Hoja hoja = new Hoja();
                     node nodo = hoja.getLeave(item, leaves);
-             //       tablaSiguientes tabla = new tablaSiguientes();
-            //        tabla.append(nodo.number, nodo.lexeme, ((node) rightFollow).first, table);
+                    tablaSiguientes tabla = new tablaSiguientes();
+                    tabla.append(nodo.number, nodo.lexeme, ((node) rightFollow).first, table);
                 }
                 break;
             case KLEENE:
                 for (int item : ((node)leftFollow).last) {
                     Hoja hoja = new Hoja();
                     node nodo = hoja.getLeave(item, leaves);
-                //    tablaSiguientes tabla = new tablaSiguientes();
-                //    tabla.append(nodo.number, nodo.lexeme, ((node) leftFollow).first, table);
+                    tablaSiguientes tabla = new tablaSiguientes();
+                    tabla.append(nodo.number, nodo.lexeme, ((node) leftFollow).first, table);
+                }
+                break;
+            case POSITIVA:
+                for (int item : ((node)leftFollow).last) {
+                    Hoja hoja = new Hoja();
+                    node nodo = hoja.getLeave(item, leaves);
+                    tablaSiguientes tabla = new tablaSiguientes();
+                    tabla.append(nodo.number, nodo.lexeme, ((node) leftFollow).first, table);
                 }
                 break;
             default:

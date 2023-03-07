@@ -249,17 +249,23 @@ public class Index extends javax.swing.JFrame {
 
     private void analizarJbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_analizarJbuttonActionPerformed
         String texto = editorTextArea.getText();
-        String er = "...*|ababb";
+        String er = "a*|abb";
         ArrayList<node> leaves = new ArrayList();
         ArrayList<ArrayList> table = new ArrayList();
         
-        er = "." + er + "#";
+        er ="..."+ er + "#";
         
         Arbol arbol = new Arbol(er, leaves, table); // CREA EL ARBOL
         node raiz = arbol.getRoot();
         
         raiz.getNode(); // DETERMINA SI LOS NODOS SON ANULABLES, SUS PRIMEROS Y ULTIMOS
         raiz.follow();
+        
+        
+        System.out.println("==============================TABLA SIGUIENTES==============================");
+        tablaSiguientes ft = new tablaSiguientes();
+        ft.printTable(table);
+        
         
         try {
             Lexico scanner = new Lexico(new java.io.StringReader(texto));
@@ -269,7 +275,7 @@ public class Index extends javax.swing.JFrame {
             System.out.println("Analisis realizado con exito");
         }catch(Exception e){
             
-        }
+        } 
     }//GEN-LAST:event_analizarJbuttonActionPerformed
     
 

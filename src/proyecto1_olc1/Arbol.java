@@ -52,6 +52,18 @@ public class Arbol {
                     pila.push(nk);
                     
                     break;
+                case "+":
+                    node unariop = (node) pila.pop();
+                    node np = new node(character, Tipos.POSITIVA, 0, unariop, null, leaves, table);
+                    pila.push(np);
+                    
+                    break;
+                 case "?":
+                    node unariob = (node) pila.pop();
+                    node nb = new node(character, Tipos.BOOLEANA, 0, unariob, null, leaves, table);
+                    pila.push(nb);
+                    
+                    break;
                 default:
                     node nd = new node(character, Tipos.HOJA, numHoja.getNumber(), null, null, leaves, table);
                     pila.push(nd);
