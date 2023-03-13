@@ -1,3 +1,4 @@
+
 package analizador;
 import java_cup.runtime.*;
 
@@ -25,21 +26,56 @@ parser code
 
 
 terminal ENTERO, CONJ, MAYUSCULAS, MINUSCULAS, SIGNOS_ASCII, PUNTO_Y_COMA, PORCENTAJE, LLAVE_ABRIR, LLAVE_CERRAR, DOS_PUNTOS, MAYOR, GUION, COMA, VIRGUILILLA, PUNTO, SUMA, 
-DISYUNCION, INTERROGACION, KLEENE;
+DISYUNCION, INTERROGACION, KLEENE, NOMBRE_VARIABLE,  TEXT,  CONJUNTO_ABC, CARACTER_ESPECIAL;
 
 
 
 
-non terminal ini;
-non terminal lexema;
+non terminal ini, primer_bloque, segundo_bloque, sentencia, er, conjuntos_con_comas, sentencias_segundobloque, notacion, elemento;
 
 
 
 start with ini; 
-
-ini ::= ini lexema
- |lexema
+ini ::= LLAVE_ABRIR primer_bloque PORCENTAJE PORCENTAJE PORCENTAJE PORCENTAJE segundo_bloque LLAVE_CERRAR
 ; 
+primer_bloque ::= primer_bloque sentencia 
+                  | sentencia
+                  ;
 
-lexema ::= 
-   ENTERO| CONJ| MAYUSCULAS| MINUSCULAS| SIGNOS_ASCII| PUNTO_Y_COMA| PORCENTAJE| LLAVE_ABRIR| LLAVE_CERRAR| DOS_PUNTOS| MAYOR| GUION| COMA| VIRGUILILLA| PUNTO| SUMA| DISYUNCION| INTERROGACION| KLEENE;
+
+sentencia ::= CONJ DOS_PUNTOS NOMBRE_VARIABLE GUION MAYOR notacion PUNTO_Y_COMA
+                | NOMBRE_VARIABLE GUION MAYOR er PUNTO_Y_COMA
+                ;
+notacion ::= MINUSCULAS VIRGUILILLA MINUSCULAS
+                | MAYUSCULAS VIRGUILILLA MAYUSCULAS
+                | SIGNOS_ASCII VIRGUILILLA SIGNOS_ASCII
+                | ENTERO VIRGUILILLA ENTERO
+                | CONJUNTO_ABC VIRGUILILLA CONJUNTO_ABC
+                | conjuntos_con_comas
+                ;
+
+conjuntos_con_comas ::= conjuntos_con_comas COMA elemento
+                        | elemento
+                        ;
+elemento ::= MINUSCULAS
+            | MAYUSCULAS
+            | ENTERO
+           | CONJUNTO_ABC
+            | SIGNOS_ASCII
+            ;
+
+er ::= PUNTO er er
+       | DISYUNCION er er
+       | KLEENE er 
+       | SUMA er
+       | INTERROGACION  er
+       | CARACTER_ESPECIAL
+       | LLAVE_ABRIR NOMBRE_VARIABLE LLAVE_CERRAR
+       ;
+
+
+segundo_bloque ::= segundo_bloque sentencias_segundobloque
+                   | sentencias_segundobloque
+                   ;
+sentencias_segundobloque ::= NOMBRE_VARIABLE DOS_PUNTOS TEXT PUNTO_Y_COMA
+                            ;

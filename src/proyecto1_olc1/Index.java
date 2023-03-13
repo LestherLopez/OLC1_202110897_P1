@@ -255,18 +255,24 @@ public class Index extends javax.swing.JFrame {
         
         er ="..."+ er + "#";
         
-        Arbol arbol = new Arbol(er, leaves, table); // CREA EL ARBOL
+        Arbol arbol = new Arbol(er, leaves, table);
         node raiz = arbol.getRoot();
         
-        raiz.getNode(); // DETERMINA SI LOS NODOS SON ANULABLES, SUS PRIMEROS Y ULTIMOS
+        raiz.getNode(); 
         raiz.follow();
+        for(int i = 0; i < leaves.size(); i++) {   
+            System.out.print(leaves.get(i));
+        }  
+        
         
         
         System.out.println("==============================TABLA SIGUIENTES==============================");
         tablaSiguientes ft = new tablaSiguientes();
         ft.printTable(table);
         
-        
+        tablaTransiciones tran = new tablaTransiciones(raiz, table, leaves); // bug
+        System.out.println("=============================TABLA TRANSICIONES=============================");
+        tran.impTable();
         try {
             Lexico scanner = new Lexico(new java.io.StringReader(texto));
             parser analizador = new parser(scanner);
@@ -274,7 +280,7 @@ public class Index extends javax.swing.JFrame {
             
             System.out.println("Analisis realizado con exito");
         }catch(Exception e){
-            
+            System.out.println("Error al realizar el analisis");
         } 
     }//GEN-LAST:event_analizarJbuttonActionPerformed
     

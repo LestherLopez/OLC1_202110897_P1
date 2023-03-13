@@ -78,4 +78,7 @@ public class Arbol {
     public node getRoot(){
         return this.root;
     }
+    
+    
+    
 }

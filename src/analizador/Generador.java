@@ -21,6 +21,7 @@ public class Generador {
             java_cup.Main.main(opcCUP);
         } catch (Exception e) {
             e.printStackTrace();
+          
         }
     }
 }
