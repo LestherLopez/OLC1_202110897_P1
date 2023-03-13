@@ -25,6 +25,7 @@ public class sym {
   public static final int COMA = 14;
   public static final int MAYOR = 12;
   public static final int EOF = 0;
+  public static final int COMILLA = 25;
   public static final int CONJ = 3;
   public static final int DISYUNCION = 18;
   public static final int MAYUSCULAS = 4;
@@ -58,7 +59,8 @@ public class sym {
   "NOMBRE_VARIABLE",
   "TEXT",
   "CONJUNTO_ABC",
-  "CARACTER_ESPECIAL"
+  "CARACTER_ESPECIAL",
+  "COMILLA"
   };
 }
 
