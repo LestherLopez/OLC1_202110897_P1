@@ -249,11 +249,12 @@ public class Index extends javax.swing.JFrame {
 
     private void analizarJbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_analizarJbuttonActionPerformed
         String texto = editorTextArea.getText();
+        /*
         String er = "a*|abb";
         ArrayList<node> leaves = new ArrayList();
-        ArrayList<ArrayList> table = new ArrayList();
+        ArrayList<ArrayList> table = new ArrayList();*/
         
-        er ="..."+ er + "#";
+        /*er ="..."+ er + "#";
         
         Arbol arbol = new Arbol(er, leaves, table);
         node raiz = arbol.getRoot();
@@ -272,7 +273,7 @@ public class Index extends javax.swing.JFrame {
         
         tablaTransiciones tran = new tablaTransiciones(raiz, table, leaves); // bug
         System.out.println("=============================TABLA TRANSICIONES=============================");
-        tran.impTable();
+        tran.impTable();*/
         try {
             Lexico scanner = new Lexico(new java.io.StringReader(texto));
             parser analizador = new parser(scanner);

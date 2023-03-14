@@ -30,9 +30,14 @@ public class Arbol {
         strList.forEach((character) -> {
             switch (character) {
                 case "|":
+                    
                     node lefto = (node) pila.pop();
                     node righto = (node) pila.pop();
-                    
+                    String str = String.valueOf(righto);
+                
+                    System.out.println("Este es el nodo: "+character );
+                    String values = Arrays.toString(pila.toArray());
+                    System.out.println(values);
                     node no = new node(character, Tipos.OR, 0, lefto, righto, leaves, table);
                     pila.push(no);
                     
@@ -74,11 +79,28 @@ public class Arbol {
         });
         this.root = (node) pila.pop();
     }
+
+    public Arbol(node stm, ArrayList<node> leaves, ArrayList<ArrayList> table) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
     
     public node getRoot(){
         return this.root;
     }
-    
+
+
+    public void printStack(Stack stack) {
+
+    // Method 1:
+    String values = Arrays.toString(stack.toArray());
+    System.out.println(values);
+
+    // Method 2:
+    Object[] vals = stack.toArray();
+    for (Object obj : vals) {
+        System.out.println(obj);
+    }
+}
     
     
 }

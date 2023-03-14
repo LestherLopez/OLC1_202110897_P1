@@ -10,6 +10,10 @@ parser code
     /**
      * Método al que se llama automáticamente ante algún error sintactico.
      **/ 
+    
+    public ArrayList<Tree> leaves = new ArrayList();
+    public ArrayList<ArrayList> table = new ArrayList();
+
     public void syntax_error(Symbol s){ 
         System.out.println("Error Sintáctico en la Línea " + (s.left) +
         " Columna "+s.right+ ". No se esperaba este componente: " +s.value+"."); 
@@ -26,7 +30,7 @@ parser code
     }  
 :} 
 
-terminal ENTERO, CONJ, MAYUSCULAS, MINUSCULAS, SIGNOS_ASCII, PUNTO_Y_COMA, PORCENTAJE, LLAVE_ABRIR, LLAVE_CERRAR, DOS_PUNTOS, MAYOR, GUION, COMA, VIRGUILILLA, PUNTO, SUMA, 
+terminal String ENTERO, CONJ, MAYUSCULAS, MINUSCULAS, SIGNOS_ASCII, PUNTO_Y_COMA, PORCENTAJE, LLAVE_ABRIR, LLAVE_CERRAR, DOS_PUNTOS, MAYOR, GUION, COMA, VIRGUILILLA, PUNTO, SUMA, 
 DISYUNCION, INTERROGACION, KLEENE, NOMBRE_VARIABLE,  TEXT,  CONJUNTO_ABC, CARACTER_ESPECIAL, COMILLA;
 
 
@@ -47,7 +51,14 @@ primer_bloque ::= primer_bloque sentencia
 
 
 sentencia ::= CONJ DOS_PUNTOS NOMBRE_VARIABLE GUION MAYOR notacion_conjunto PUNTO_Y_COMA
-                | NOMBRE_VARIABLE GUION MAYOR  er PUNTO_Y_COMA
+                | NOMBRE_VARIABLE GUION MAYOR  er:a PUNTO_Y_COMA{:
+                
+                NodoArbol stm = (NodoArbol)(Object)a;
+                Tree nueva_raiz = new Tree(stm);
+                leaves.add(nueva_raiz);
+
+                    
+:}
                 ;
 notacion_conjunto ::= MINUSCULAS VIRGUILILLA MINUSCULAS
                 | MAYUSCULAS VIRGUILILLA MAYUSCULAS
@@ -66,14 +77,59 @@ elemento ::= MINUSCULAS
            | CONJUNTO_ABC
             | SIGNOS_ASCII
             ;
+//node lefto = (node)(Object)str;
+//node no = new node(character, Tipos.OR, 0, lefto, righto, leaves, table);
+er ::= PUNTO:character er:di er:dd      {:  
+                        NodoArbol nconjuncion = new NodoArbol(character);    
+                        NodoArbol leftp = (NodoArbol)(Object)di;
+                        NodoArbol rightp = (NodoArbol)(Object)dd;
+                        nconjuncion.setIzquierdo(leftp);
+                        nconjuncion.setDerecho(rightp);
+                        RESULT = nconjuncion;
+                                :}
+       | DISYUNCION:character er:di er:dd  {:  
+                        NodoArbol ndisyuncion = new NodoArbol(character);    
+                        NodoArbol lefto = (NodoArbol)(Object)di;
+                        NodoArbol righto = (NodoArbol)(Object)dd;
+                        ndisyuncion.setIzquierdo(lefto);
+                        ndisyuncion.setDerecho(righto);
+                        RESULT = ndisyuncion;
+                    :}
+       | KLEENE:character er:k      {:  
+                        NodoArbol nk = new NodoArbol(character);
+              
+                        NodoArbol unariok = (NodoArbol)(Object)k;
+                        nk.setIzquierdo(unariok);
+                      
+                        RESULT = nk;
+                    :}
+       | SUMA:character er:p    {:  
 
-er ::= PUNTO er er
-       | DISYUNCION er er
-       | KLEENE er 
-       | SUMA er
-       | INTERROGACION  er
-       | CARACTER_ESPECIAL
-       | LLAVE_ABRIR NOMBRE_VARIABLE LLAVE_CERRAR
+                        NodoArbol np = new NodoArbol(character);
+              
+                        NodoArbol unariop = (NodoArbol)(Object)p;
+                        np.setIzquierdo(unariop);
+                      
+                        RESULT = np;
+                    :}
+                        
+       | INTERROGACION:character  er:a  {:  
+                                NodoArbol nb = new NodoArbol(character);
+                                
+                                NodoArbol unariob = (NodoArbol)(Object)a;
+                                nb.setIzquierdo(unariob);
+                               RESULT = nb;
+                    :}
+       | CARACTER_ESPECIAL:character {:                               NodoArbol nz = new NodoArbol(character);
+                                                                      nz.setHojas(true);
+                                                                      nz.setAnulabilidad(false);
+                                                                      RESULT = nz;
+                                     :}
+       | LLAVE_ABRIR:a NOMBRE_VARIABLE:character LLAVE_CERRAR:c   {:  NodoArbol nd = new NodoArbol(character);
+                                                                      nd.setHojas(true);
+                                                                      nd.setAnulabilidad(false);
+                                                                      RESULT = nd;
+                                                                   :}
        ;
 
 

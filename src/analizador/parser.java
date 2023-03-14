@@ -5,8 +5,11 @@
 
 package analizador;
 
+import java.util.ArrayList;
 import java_cup.runtime.*;
 import java_cup.runtime.XMLElement;
+import proyecto1_olc1.NodoArbol;
+import proyecto1_olc1.Tree;
 
 /** CUP v0.11b 20160615 (GIT 4ac7450) generated parser.
   */
@@ -176,6 +179,10 @@ public class parser extends java_cup.runtime.lr_parser {
     /**
      * Método al que se llama automáticamente ante algún error sintactico.
      **/ 
+    
+    public ArrayList<Tree> leaves = new ArrayList();
+    public ArrayList<ArrayList> table = new ArrayList();
+
     public void syntax_error(Symbol s){ 
         System.out.println("Error Sintáctico en la Línea " + (s.left) +
         " Columna "+s.right+ ". No se esperaba este componente: " +s.value+"."); 
@@ -270,6 +277,16 @@ class CUP$parser$actions {
           case 5: // sentencia ::= NOMBRE_VARIABLE GUION MAYOR er PUNTO_Y_COMA 
             {
               Object RESULT =null;
+		int aleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
+		int aright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
+		Object a = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+		
+                
+                NodoArbol stm = (NodoArbol)(Object)a;
+                Tree nueva_raiz = new Tree(stm);
+                leaves.add(nueva_raiz);
+
+                    
 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("sentencia",3, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-4)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
@@ -396,7 +413,23 @@ class CUP$parser$actions {
           case 19: // er ::= PUNTO er er 
             {
               Object RESULT =null;
-
+		int characterleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
+		int characterright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
+		String character = (String)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
+		int dileft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
+		int diright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
+		Object di = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+		int ddleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
+		int ddright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
+		Object dd = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		  
+                        NodoArbol nconjuncion = new NodoArbol(character);    
+                        NodoArbol leftp = (NodoArbol)(Object)di;
+                        NodoArbol rightp = (NodoArbol)(Object)dd;
+                        nconjuncion.setIzquierdo(leftp);
+                        nconjuncion.setDerecho(rightp);
+                        RESULT = nconjuncion;
+                                
               CUP$parser$result = parser.getSymbolFactory().newSymbol("er",4, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -405,7 +438,23 @@ class CUP$parser$actions {
           case 20: // er ::= DISYUNCION er er 
             {
               Object RESULT =null;
-
+		int characterleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
+		int characterright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
+		String character = (String)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
+		int dileft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
+		int diright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
+		Object di = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+		int ddleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
+		int ddright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
+		Object dd = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		  
+                        NodoArbol ndisyuncion = new NodoArbol(character);    
+                        NodoArbol lefto = (NodoArbol)(Object)di;
+                        NodoArbol righto = (NodoArbol)(Object)dd;
+                        ndisyuncion.setIzquierdo(lefto);
+                        ndisyuncion.setDerecho(righto);
+                        RESULT = ndisyuncion;
+                    
               CUP$parser$result = parser.getSymbolFactory().newSymbol("er",4, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -414,7 +463,20 @@ class CUP$parser$actions {
           case 21: // er ::= KLEENE er 
             {
               Object RESULT =null;
-
+		int characterleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
+		int characterright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
+		String character = (String)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+		int kleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
+		int kright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
+		Object k = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		  
+                        NodoArbol nk = new NodoArbol(character);
+              
+                        NodoArbol unariok = (NodoArbol)(Object)k;
+                        nk.setIzquierdo(unariok);
+                      
+                        RESULT = nk;
+                    
               CUP$parser$result = parser.getSymbolFactory().newSymbol("er",4, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -423,7 +485,21 @@ class CUP$parser$actions {
           case 22: // er ::= SUMA er 
             {
               Object RESULT =null;
+		int characterleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
+		int characterright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
+		String character = (String)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+		int pleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
+		int pright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
+		Object p = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		  
 
+                        NodoArbol np = new NodoArbol(character);
+              
+                        NodoArbol unariop = (NodoArbol)(Object)p;
+                        np.setIzquierdo(unariop);
+                      
+                        RESULT = np;
+                    
               CUP$parser$result = parser.getSymbolFactory().newSymbol("er",4, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -432,7 +508,19 @@ class CUP$parser$actions {
           case 23: // er ::= INTERROGACION er 
             {
               Object RESULT =null;
-
+		int characterleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
+		int characterright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
+		String character = (String)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+		int aleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
+		int aright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
+		Object a = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		  
+                                NodoArbol nb = new NodoArbol(character);
+              
+                                NodoArbol unariob = (NodoArbol)(Object)a;
+                                nb.setIzquierdo(unariob);
+                               RESULT = nb;
+                    
               CUP$parser$result = parser.getSymbolFactory().newSymbol("er",4, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -441,7 +529,13 @@ class CUP$parser$actions {
           case 24: // er ::= CARACTER_ESPECIAL 
             {
               Object RESULT =null;
-
+		int characterleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
+		int characterright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
+		String character = (String)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		                               NodoArbol nz = new NodoArbol(character);
+                                                                      nz.setHojas(true);
+                                                                      RESULT = nz;
+                                     
               CUP$parser$result = parser.getSymbolFactory().newSymbol("er",4, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -450,7 +544,18 @@ class CUP$parser$actions {
           case 25: // er ::= LLAVE_ABRIR NOMBRE_VARIABLE LLAVE_CERRAR 
             {
               Object RESULT =null;
-
+		int aleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
+		int aright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
+		String a = (String)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
+		int characterleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
+		int characterright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
+		String character = (String)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+		int cleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
+		int cright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
+		String c = (String)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		  NodoArbol nd = new NodoArbol(character);
+                                                                      RESULT = nd;
+                                                                   
               CUP$parser$result = parser.getSymbolFactory().newSymbol("er",4, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
