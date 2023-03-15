@@ -3,6 +3,11 @@ package analizador;
 import java_cup.runtime.*;
 
 
+import java.util.ArrayList;
+
+import java_cup.runtime.XMLElement;
+import proyecto1_olc1.NodoArbol;
+import proyecto1_olc1.Tree;
 
  
 parser code 
@@ -11,8 +16,8 @@ parser code
      * Método al que se llama automáticamente ante algún error sintactico.
      **/ 
     
-    public ArrayList<Tree> leaves = new ArrayList();
-    public ArrayList<ArrayList> table = new ArrayList();
+    public ArrayList<Tree> leaves = new ArrayList<>();
+    public ArrayList<ArrayList> table = new ArrayList<>();
 
     public void syntax_error(Symbol s){ 
         System.out.println("Error Sintáctico en la Línea " + (s.left) +
@@ -51,12 +56,14 @@ primer_bloque ::= primer_bloque sentencia
 
 
 sentencia ::= CONJ DOS_PUNTOS NOMBRE_VARIABLE GUION MAYOR notacion_conjunto PUNTO_Y_COMA
-                | NOMBRE_VARIABLE GUION MAYOR  er:a PUNTO_Y_COMA{:
+                | NOMBRE_VARIABLE GUION MAYOR  er:a PUNTO_Y_COMA{:leaves.add(new Tree((NodoArbol) a));
                 
+                /*
                 NodoArbol stm = (NodoArbol)(Object)a;
                 Tree nueva_raiz = new Tree(stm);
-                leaves.add(nueva_raiz);
-
+                leaves.add(stm);
+                */
+               // leaves.add(new Tree((NodoArbol) a))
                     
 :}
                 ;

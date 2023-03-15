@@ -5,11 +5,12 @@
 
 package analizador;
 
-import java.util.ArrayList;
 import java_cup.runtime.*;
+import java.util.ArrayList;
 import java_cup.runtime.XMLElement;
 import proyecto1_olc1.NodoArbol;
 import proyecto1_olc1.Tree;
+import java_cup.runtime.XMLElement;
 
 /** CUP v0.11b 20160615 (GIT 4ac7450) generated parser.
   */
@@ -180,8 +181,8 @@ public class parser extends java_cup.runtime.lr_parser {
      * Método al que se llama automáticamente ante algún error sintactico.
      **/ 
     
-    public ArrayList<Tree> leaves = new ArrayList();
-    public ArrayList<ArrayList> table = new ArrayList();
+    public ArrayList<Tree> leaves = new ArrayList<>();
+    public ArrayList<ArrayList> table = new ArrayList<>();
 
     public void syntax_error(Symbol s){ 
         System.out.println("Error Sintáctico en la Línea " + (s.left) +
@@ -280,12 +281,14 @@ class CUP$parser$actions {
 		int aleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int aright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
 		Object a = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
-		
+		leaves.add(new Tree((NodoArbol) a));
                 
+                /*
                 NodoArbol stm = (NodoArbol)(Object)a;
                 Tree nueva_raiz = new Tree(stm);
-                leaves.add(nueva_raiz);
-
+                leaves.add(stm);
+                */
+               // leaves.add(new Tree((NodoArbol) a))
                     
 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("sentencia",3, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-4)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
@@ -516,7 +519,7 @@ class CUP$parser$actions {
 		Object a = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		  
                                 NodoArbol nb = new NodoArbol(character);
-              
+                                
                                 NodoArbol unariob = (NodoArbol)(Object)a;
                                 nb.setIzquierdo(unariob);
                                RESULT = nb;
@@ -534,6 +537,7 @@ class CUP$parser$actions {
 		String character = (String)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		                               NodoArbol nz = new NodoArbol(character);
                                                                       nz.setHojas(true);
+                                                                      nz.setAnulabilidad(false);
                                                                       RESULT = nz;
                                      
               CUP$parser$result = parser.getSymbolFactory().newSymbol("er",4, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
@@ -554,6 +558,8 @@ class CUP$parser$actions {
 		int cright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		String c = (String)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		  NodoArbol nd = new NodoArbol(character);
+                                                                      nd.setHojas(true);
+                                                                      nd.setAnulabilidad(false);
                                                                       RESULT = nd;
                                                                    
               CUP$parser$result = parser.getSymbolFactory().newSymbol("er",4, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);

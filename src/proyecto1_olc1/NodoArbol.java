@@ -17,9 +17,8 @@ public class NodoArbol {
     private NodoArbol izquierdo;
     private NodoArbol derecho;
     boolean anulabilidad;
-    
-    ArrayList<Integer> first = new ArrayList<>();
-    ArrayList<Integer> last= new ArrayList<>();
+    private ArrayList<Integer> first = new ArrayList<>();
+    private ArrayList<Integer> last= new ArrayList<>();
     public boolean isAnulabilidad() {
         return anulabilidad;
     }
