@@ -24,15 +24,19 @@ import javax.swing.JTextArea;
  *
  * @author 50246
  */
+
 public class Index extends javax.swing.JFrame {
     String current_file = null;
+    
+    
     /**
      * Creates new form Index
      */
     public Index() {
         initComponents();
     }
-
+     
+     
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -249,6 +253,7 @@ public class Index extends javax.swing.JFrame {
 
     private void analizarJbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_analizarJbuttonActionPerformed
         String texto = editorTextArea.getText();
+       
         /*
         String er = "a*|abb";
         ArrayList<node> leaves = new ArrayList();
@@ -278,7 +283,7 @@ public class Index extends javax.swing.JFrame {
             Lexico scanner = new Lexico(new java.io.StringReader(texto));
             parser analizador = new parser(scanner);
             analizador.parse();
-            
+                   
             System.out.println("Analisis realizado con exito");
         }catch(Exception e){
             System.out.println("Error al realizar el analisis");

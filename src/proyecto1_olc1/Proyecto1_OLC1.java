@@ -16,12 +16,15 @@ public class Proyecto1_OLC1 {
      */
     public static void main(String[] args) {
        System.out.println("hola mundo");
+       
        Index ventanai = new Index();
           ventanai.setVisible(true);
     }
 
+ 
+
     static void lecturaArchivo(String ruta) {
         System.out.println(ruta); }
-    
+        
 }
 

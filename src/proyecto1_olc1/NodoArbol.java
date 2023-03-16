@@ -19,8 +19,17 @@ public class NodoArbol {
     boolean anulabilidad;
     private ArrayList<Integer> first = new ArrayList<>();
     private ArrayList<Integer> last= new ArrayList<>();
+    private ArrayList<Integer> follow = new ArrayList<>();
     public boolean isAnulabilidad() {
         return anulabilidad;
+    }
+
+    public ArrayList<Integer> getFollow() {
+        return follow;
+    }
+
+    public void setFollow(ArrayList<Integer> follow) {
+        this.follow = follow;
     }
 
     public void setAnulabilidad(boolean anulabilidad) {
