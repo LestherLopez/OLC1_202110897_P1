@@ -10,6 +10,7 @@ import java.util.ArrayList;
  */
 public class tablaSiguientes {
     public void append(int numNode, String lexeme, ArrayList flwList, ArrayList<ArrayList> table){
+        System.out.println("safa");
         for (ArrayList item : table){
             if( (int) item.get(0) == numNode && item.get(1) == lexeme ){
                 for (Object flwItem : flwList){
