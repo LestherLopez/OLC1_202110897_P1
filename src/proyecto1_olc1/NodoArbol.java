@@ -20,6 +20,42 @@ public class NodoArbol {
     private ArrayList<Integer> first = new ArrayList<>();
     private ArrayList<Integer> last= new ArrayList<>();
     private ArrayList<Integer> follow = new ArrayList<>();
+    private String id = new String();
+    private ArrayList<Integer> estados = new ArrayList<>();
+    private ArrayList<String> terminal = new ArrayList<>();
+    private ArrayList<String> caracteres = new ArrayList<>();
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public ArrayList<Integer> getEstados() {
+        return estados;
+    }
+
+    public void setEstados(ArrayList<Integer> estados) {
+        this.estados = estados;
+    }
+
+    public ArrayList<String> getTerminal() {
+        return terminal;
+    }
+
+    public void setTerminal(ArrayList<String> terminal) {
+        this.terminal = terminal;
+    }
+
+    public ArrayList<String> getCaracteres() {
+        return caracteres;
+    }
+
+    public void setCaracteres(ArrayList<String> caracteres) {
+        this.caracteres = caracteres;
+    }
     public boolean isAnulabilidad() {
         return anulabilidad;
     }

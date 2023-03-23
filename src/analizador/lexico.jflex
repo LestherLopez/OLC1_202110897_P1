@@ -61,9 +61,7 @@ COMENTARIO_SIMPLE = "//" .*
 NOMBRE_VARIABLE= [0-9a-zA-Z_][a-zA-Z_]+
 ESPECIALES_NOSALTADOS = [^\'\"]
 CARACTER_ESPECIAL = (\" {ESPECIALES_NOSALTADOS} \") | ("\\\"" | "\\n" | "\\\'")
-//CARACTER = [^.] | .
-//COMENTARIO_MULTILINEA = "<!"[^/]~"!>"
-//COMENTARIO_SIMPLE = "//" {CARACTER}* {ENTER}?
+
 %%
 
 <YYINITIAL> {COMENTARIO_MULTILINEA}     { /*Espacios omitidos*/ }

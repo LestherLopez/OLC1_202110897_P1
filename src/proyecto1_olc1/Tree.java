@@ -8,8 +8,11 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.util.ArrayList;
+import java.util.Collection;
 import javax.swing.JFileChooser;
  import java.util.Random;
+import proyecto1_olc1.Error;
+
 /**
  *
  * @author 50246
@@ -17,12 +20,16 @@ import javax.swing.JFileChooser;
 public class Tree {
     private NodoArbol raiz_arbol;
     private int nonode =1;
-    public int contadorarbol = 0;
+    public int contador_transicion = 1;
+    
     ArrayList<ArrayList> table;
     private ArrayList<NodoArbol> hojas = new ArrayList<>();
+    public  ArrayList<NodoArbol> transiciones = new ArrayList<>();
+     public  ArrayList<String> caracteres_hojas = new ArrayList<>();
+     
     public Tree(NodoArbol raiz_arbol) {
             
-         NodoArbol root = new NodoArbol(".");
+        NodoArbol root = new NodoArbol(".");
         NodoArbol numeral = new NodoArbol("#");
         root.setDerecho(numeral);
         root.setIzquierdo(raiz_arbol);
@@ -32,15 +39,24 @@ public class Tree {
         numero_nodo(this.raiz_arbol);
         nonode = 0;
         reglas_Arbol(this.raiz_arbol);
-        System.out.println("empieza arbol");
-        Proyecto1_OLC1 inde = new Proyecto1_OLC1();
+       
+
         String arbol_codigo = printArbol(this.raiz_arbol, nonode);
         graphviz(arbol_codigo, "arbol");
         reglas_siguientes(this.raiz_arbol);
         String siguientes_codigo = printSiguientes(this.raiz_arbol, nonode);
         graphviz(siguientes_codigo, "siguientes");
-   //     tablaSiguientes tabla = new tablaSiguientes();
-    //    tabla.printTable(table);
+        caracterhoja();
+        transicion_inicial(this.raiz_arbol);
+        obtenerTransiciones(this.raiz_arbol);
+        obtenerTerminales();
+         for (int j = 0; j < transiciones.size(); j++){ 
+            System.out.println(transiciones.get(j).getTerminal());
+        }
+        String transiciones_codigo = printTransiciones();
+        graphviz(transiciones_codigo, "transiciones");
+        
+  
     }
 
    
@@ -51,9 +67,9 @@ public class Tree {
 
    
     public void numero_nodo(NodoArbol node){
-        System.out.println("llega a numeri nodo");
+        
         if(node == null){
-            System.out.println("AAA");
+           
             return;
         }
        
@@ -66,10 +82,142 @@ public class Tree {
             numero_nodo(node.getIzquierdo());
         
         numero_nodo(node.getDerecho());
-        
-        
-        
+      
+    }
+    public void caracterhoja(){
+        for (int j = 0; j < hojas.size(); j++){ 
+                 if(caracteres_hojas.contains(hojas.get(j).getCharacter())){
+                     
+                 }
+                 else{
+                     caracteres_hojas.add(hojas.get(j).getCharacter());
+                 }
+             }
+}
+    public void obtenerTerminales(){
+        for(int j =1; j < transiciones.size(); j++){
+            for(int i =0; i < (transiciones.get(j).getEstados().size()); i++){
+            
+                transiciones.get(j).getCaracteres().add(hojas.get(transiciones.get(j).getEstados().get(i)-1).getCharacter());
+                
+            }
+           
+        }
+                                   /*s for(int i =1; i < transiciones.get(j-1).getCaracteres().size(); i++){
+                            if(transiciones.get(j).getCaracteres().contains(transiciones.get(j-1).getCaracteres().get(i))){
+                                transiciones.get(j).getTerminal().add("S"+(j+1));
+                            }*/
     
+        for(int j =1; j < transiciones.size(); j++){
+                
+                 for(int z =0; z < (caracteres_hojas.size()-1); z++){
+                     
+                    if(transiciones.get(j).getCaracteres().contains(caracteres_hojas.get(z)) && caracteres_hojas.get(z)!="#"){
+                        
+                        if(j==(transiciones.size()-1) ){
+                            transiciones.get(j).getTerminal().add("S"+(j));
+                        }else if(transiciones.get(j-1).getCaracteres().contains(caracteres_hojas.get(z))){
+                            transiciones.get(j).getTerminal().add("S"+(j));
+                        }else{
+                            transiciones.get(j).getTerminal().add("S"+(j+1));
+                        }
+                  
+                        
+                    }else{
+                        transiciones.get(j).getTerminal().add("-");
+                            
+                            }}   
+        }
+    }
+    public void obtenerTransiciones(NodoArbol node){
+     if(node==null){
+            
+            return;
+        }
+        obtenerTransiciones(node.getIzquierdo());
+        obtenerTransiciones(node.getDerecho());
+        if(node.isHojas() && node.getCharacter()!="#"){
+            
+      
+
+ 
+                System.out.println(node.getFollow());
+                if(transiciones.get(contador_transicion-1).getEstados().toString().equals(node.getFollow().toString())){
+                
+             
+                    return;
+                }else{
+                 node.setId("S"+contador_transicion);
+                 node.getEstados().addAll(node.getFollow());
+            /*     for(int j =0; j < hojas.size(); j++){
+                     node.getTerminal().add("-");
+                 }*/
+                 transiciones.add(node);
+                 
+                 contador_transicion += 1;
+                 System.out.println("se agrego");
+                 return;
+                }
+                 
+ 
+       }
+
+        
+    }
+    
+
+    public void transicion_inicial(NodoArbol node){
+        if(node==null){
+            
+            return;
+        }
+        
+ 
+        transicion_inicial(node.getIzquierdo());
+        transicion_inicial(node.getDerecho());
+       if(node.getCharacter()=="#"){
+            node.getEstados().add(1);
+            node.setId("S0");
+            for (int j = 0; j < hojas.size(); j++) {
+                if(hojas.get(j).getNumber()==1){
+                    node.getCaracteres().add(hojas.get(j).getCharacter());
+                    node.getTerminal().add("S1");
+                }else{
+                    node.getTerminal().add("-");
+                }
+            
+            }
+            transiciones.add(node);
+       }
+        
+    }
+       public String printTransiciones(){
+        String cadena = "";
+        
+       cadena += "parent[\n";
+       cadena += "shape=plaintext\n";
+       cadena += "label=<\n";
+       cadena += "<table border='1' cellborder='1'>\n";
+        cadena += "<tr><td  rowspan=\"2\">Estado</td><td colspan=\""+(caracteres_hojas.size()-1)+"\">Terminales</td></tr>\n";
+        cadena += "<tr>";
+        for(int j = 0; j < caracteres_hojas.size()-1; j++) {
+           cadena+= "<td>"+caracteres_hojas.get(j)+"</td>\n";
+        }
+       
+        cadena += " </tr>\n";
+          
+        for(int i =0; i < transiciones.size(); i++ ){
+            cadena +="<tr><td port='port_one'>"+transiciones.get(i).getId()+transiciones.get(i).getEstados()+"</td>";
+          
+                for(int j =0; j < caracteres_hojas.size()-1; j++){
+                cadena +=   "<td>"+transiciones.get(i).getTerminal().get(j)+"</td>";
+                }
+            cadena += "</tr>";
+        }      
+      
+        cadena += "</table>>];\n";
+        return cadena;
+        
     }
     public void reglas_siguientes(NodoArbol node){
         if(node==null){
@@ -160,7 +308,8 @@ public class Tree {
         
         
         if(node.isHojas()){
-           
+             
+            
             hojas.add(node);
             node.getFirst().add(node.getNumber());
             node.getLast().add(node.getNumber());
@@ -195,7 +344,7 @@ public class Tree {
             
         }else if(node.getCharacter().equals("|")){
             //colacando anulabilidad  
-            System.out.println("entra a if");
+         
             if(node.getIzquierdo().isAnulabilidad()|| node.getDerecho().isAnulabilidad()){
                 node.setAnulabilidad(true);
               
@@ -311,7 +460,7 @@ public class Tree {
             if(tipo=="arbol"){
                 gv.add(codigo);
                 gv.addln(gv.end_graph());
-                System.out.println(gv.getDotSource());
+              //  System.out.println(gv.getDotSource());
                 gv.increaseDpi();
                 String type = "png";
                 String repesentationType = "dot";
@@ -330,11 +479,20 @@ public class Tree {
 
                 gv.add(cadena_siguientes);
                 gv.addln(gv.end_graph());
-         //       System.out.println(gv.getDotSource());
+          //    System.out.println(gv.getDotSource());
                 gv.increaseDpi();
                 String type = "png";
                 String repesentationType = "dot";
                 File out = new File("SIGUIENTES_202110897\\siguientes_"+random+"." +type);
+                gv.writeGraphToFile(gv.getGraph(gv.getDotSource(), type, repesentationType), out);
+            }else if(tipo=="transiciones"){
+                 gv.add(codigo);
+                gv.addln(gv.end_graph());
+              System.out.println(gv.getDotSource());
+                gv.increaseDpi();
+                String type = "png";
+                String repesentationType = "dot";
+                File out = new File("TRANSICIONES_202110897\\transiciones_"+random+"." +type);
                 gv.writeGraphToFile(gv.getGraph(gv.getDotSource(), type, repesentationType), out);
             }
             

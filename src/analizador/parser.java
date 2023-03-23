@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java_cup.runtime.XMLElement;
 import proyecto1_olc1.NodoArbol;
 import proyecto1_olc1.Tree;
+import proyecto1_olc1.Error;
 import java_cup.runtime.XMLElement;
 
 /** CUP v0.11b 20160615 (GIT 4ac7450) generated parser.
@@ -183,10 +184,16 @@ public class parser extends java_cup.runtime.lr_parser {
     
     public ArrayList<Tree> leaves = new ArrayList<>();
     public ArrayList<ArrayList> table = new ArrayList<>();
-
+  
     public void syntax_error(Symbol s){ 
         System.out.println("Error Sintáctico en la Línea " + (s.left) +
         " Columna "+s.right+ ". No se esperaba este componente: " +s.value+"."); 
+        Error error = new Error();
+        error.setColumna(String.valueOf(s.right));
+        error.setLinea(String.valueOf(s.left));
+        error.setCaracter((String) s.value);
+        error.getErrores().add(error);
+        error.reporteErrores();
     } 
 
     /**
@@ -197,6 +204,7 @@ public class parser extends java_cup.runtime.lr_parser {
         System.out.println("Error síntactico irrecuperable en la Línea " + 
         (s.left)+ " Columna "+s.right+". Componente " + s.value + 
         " no reconocido."); 
+       
     }  
 
 
