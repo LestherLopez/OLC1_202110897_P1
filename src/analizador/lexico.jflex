@@ -1,8 +1,6 @@
 package analizador;
 import java_cup.runtime.Symbol;
-import proyecto1_olc1.noHoja;
-import proyecto1_olc1.node;
-import proyecto1_olc1.tipo.Tipos;
+
 %%
 
 %{
