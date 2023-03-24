@@ -50,13 +50,11 @@ public class Tree {
         transicion_inicial(this.raiz_arbol);
         obtenerTransiciones(this.raiz_arbol);
         obtenerTerminales();
-         for (int j = 0; j < transiciones.size(); j++){ 
-            System.out.println(transiciones.get(j).getTerminal());
-        }
         String transiciones_codigo = printTransiciones();
         graphviz(transiciones_codigo, "transiciones");
+        String codigo_afd = obtenerAFD();
+        graphviz(codigo_afd, "afd");
         
-  
     }
 
    
@@ -94,6 +92,36 @@ public class Tree {
                  }
              }
 }
+ 
+    public String obtenerAFD(){
+        String cadenaAFD= "";
+        cadenaAFD += "rankdir=LR\n";
+        for(int i =0; i < transiciones.size(); i++){
+         
+            if((transiciones.get(i).getCaracteres().contains("#") || transiciones.get(i).getEstados().contains(hojas.size()))){
+            cadenaAFD += "S"+i+"[color= black shape = doublecircle, label=\""+transiciones.get(i).getId()+"\"]; \n";
+            }
+            else{
+                cadenaAFD += "S"+i+"[color= black shape = circle, label=\""+transiciones.get(i).getId()+"\"]; \n";
+            }
+        }
+        for(int i =0; i < transiciones.size(); i++){
+            for(int j =0; j < transiciones.get(i).getTerminal().size(); j++){
+                if(transiciones.get(i).getTerminal().get(j)!="-"){
+           
+                       cadenaAFD += "S"+i+" -> "+transiciones.get(i).getTerminal().get(j)+"[labeldistance=2\n";
+                        cadenaAFD += "labelangle=0\n"; 
+                        cadenaAFD += "label=<\n";
+                       cadenaAFD += "<table bgcolor=\"white\" border=\"0\">\n"; 
+                       cadenaAFD += "<tr>\n";
+                       cadenaAFD += "<td>"+caracteres_hojas.get(j)+"</td>\n";
+                       cadenaAFD += "</tr> </table>>]";
+     
+                }
+            }
+        }
+        return cadenaAFD;
+    }
     public void obtenerTerminales(){
         for(int j =1; j < transiciones.size(); j++){
             for(int i =0; i < (transiciones.get(j).getEstados().size()); i++){
@@ -489,10 +517,19 @@ public class Tree {
                  gv.add(codigo);
                 gv.addln(gv.end_graph());
               System.out.println(gv.getDotSource());
-                gv.increaseDpi();
+            //    gv.increaseDpi();
                 String type = "png";
                 String repesentationType = "dot";
                 File out = new File("TRANSICIONES_202110897\\transiciones_"+random+"." +type);
+                gv.writeGraphToFile(gv.getGraph(gv.getDotSource(), type, repesentationType), out);
+            }else if(tipo=="afd"){
+                gv.add(codigo);
+                gv.addln(gv.end_graph());
+              System.out.println(gv.getDotSource());
+                gv.increaseDpi();
+                String type = "png";
+                String repesentationType = "dot";
+                File out = new File("AFD_202110897\\AFD_"+random+"." +type);
                 gv.writeGraphToFile(gv.getGraph(gv.getDotSource(), type, repesentationType), out);
             }
             
